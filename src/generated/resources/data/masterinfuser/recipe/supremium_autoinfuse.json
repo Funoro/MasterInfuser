@@ -1,0 +1,7 @@
+{
+  "type": "masterinfuser:autoinfuser",
+  "input": "mysticalagriculture:imperium_essence",
+  "result": {
+    "id": "mysticalagriculture:supremium_essence"
+  }
+}

@@ -10,6 +10,16 @@ group = mod_group_id
 
 repositories {
     mavenLocal()
+    exclusiveContent {
+        forRepository {
+            maven {
+                url "https://cursemaven.com"
+            }
+        }
+        filter {
+            includeGroup "curse.maven"
+        }
+    }
 }
 
 base {
@@ -96,6 +106,13 @@ sourceSets.main.resources { srcDir 'src/generated/resources' }
 
 
 dependencies {
+
+    // Mystical Agriculture v26.1.2-9.0.3
+    // https://www.curseforge.com/minecraft/mc-mods/mystical-agriculture/files/8130326
+    implementation "curse.maven:mystical-agriculture-246640:8130326"
+    // Cucumber for Myst.Agr.
+    implementation "curse.maven:cucumber-272335:8178456"
+
     // Example mod dependency with JEI
     // The JEI API is declared for compile time use, while the full JEI artifact is used at runtime
     // compileOnly "mezz.jei:jei-${mc_version}-common-api:${jei_version}"

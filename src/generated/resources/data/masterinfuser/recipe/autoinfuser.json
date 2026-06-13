@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "group": "masterinfuser",
+  "key": {
+    "C": "masterinfuser:autoinfuser_crystal",
+    "F": "mysticalagriculture:machine_frame",
+    "I": "minecraft:iron_ingot",
+    "S": "mysticalagriculture:soulium_ingot"
+  },
+  "pattern": [
+    "ISI",
+    "CFC",
+    "ISI"
+  ],
+  "result": {
+    "id": "masterinfuser:autoinfuser"
+  }
+}

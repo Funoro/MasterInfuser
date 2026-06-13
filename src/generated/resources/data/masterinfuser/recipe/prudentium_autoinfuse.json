@@ -1,0 +1,7 @@
+{
+  "type": "masterinfuser:autoinfuser",
+  "input": "mysticalagriculture:inferium_essence",
+  "result": {
+    "id": "mysticalagriculture:prudentium_essence"
+  }
+}

@@ -77,3 +77,17 @@ side = "BOTH"
 # stop your mod loading on the server for example.
 #[features."${mod_id}"]
 #openGLVersion="[3.2,)"
+
+# Mystical Agriculture
+[[dependencies."${mod_id}"]] #optional
+modId="mysticalagriculture"
+type="required"
+versionRange="[9.0.3,9.1)"
+ordering="AFTER"
+
+[[dependencies."${mod_id}"]] #optional
+modId="cucumber"
+type="required"
+reason="Dependency for Mystical Agriculture."
+versionRange="[9.0.3,9.1)"
+ordering="AFTER"

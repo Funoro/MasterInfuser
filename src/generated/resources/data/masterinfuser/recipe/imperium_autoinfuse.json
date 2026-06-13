@@ -1,0 +1,7 @@
+{
+  "type": "masterinfuser:autoinfuser",
+  "input": "mysticalagriculture:tertium_essence",
+  "result": {
+    "id": "mysticalagriculture:imperium_essence"
+  }
+}

@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_prudentium_essence": {
+      "conditions": {
+        "items": [
+          {
+            "items": "mysticalagriculture:prudentium_essence"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "masterinfuser:tertium_autoinfuse"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_prudentium_essence"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "masterinfuser:tertium_autoinfuse"
+    ]
+  }
+}

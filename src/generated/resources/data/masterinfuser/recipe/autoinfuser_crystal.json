@@ -1,0 +1,19 @@
+{
+  "type": "masterinfuser:consuming_shaped",
+  "category": "misc",
+  "group": "masterinfuser",
+  "key": {
+    "C": "mysticalagriculture:master_infusion_crystal",
+    "D": "minecraft:diamond",
+    "G": "minecraft:gold_ingot",
+    "R": "minecraft:redstone"
+  },
+  "pattern": [
+    " D ",
+    "GCG",
+    " R "
+  ],
+  "result": {
+    "id": "masterinfuser:autoinfuser_crystal"
+  }
+}
