@@ -2,7 +2,6 @@ package hu.funoro.masterinfuser.block;
 
 import com.blakebr0.cucumber.block.BaseTileEntityBlock;
 import com.blakebr0.cucumber.helper.BlockHelper;
-import com.blakebr0.mysticalagriculture.tileentity.ReprocessorTileEntity;
 import hu.funoro.masterinfuser.tileentity.AutoinfuserTileEntity;
 import hu.funoro.masterinfuser.tileentity.ModTileEntities;
 import net.minecraft.core.BlockPos;
@@ -57,9 +56,9 @@ public class AutoinfuserBlock extends BaseTileEntityBlock {
     protected InteractionResult useItemOn(ItemStack stack, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult) {
         if (!level.isClientSide()) {
             BlockEntity tile = level.getBlockEntity(pos);
-            if (tile instanceof ReprocessorTileEntity) {
-                AutoinfuserTileEntity reprocessor = (AutoinfuserTileEntity) tile;
-                player.openMenu(reprocessor, pos);
+            if (tile instanceof AutoinfuserTileEntity) {
+                AutoinfuserTileEntity autoinfuser = (AutoinfuserTileEntity) tile;
+                player.openMenu(autoinfuser, pos);
             }
         }
 
