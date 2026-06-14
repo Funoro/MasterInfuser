@@ -198,7 +198,7 @@ public class AutoinfuserTileEntity extends BaseInventoryTileEntity implements Me
             tile.isRunning = false;
 
             var input = tile.inventory.getResource(INPUT_SLOT);
-            if (!input.isEmpty() && tile.inventory) {
+            if (!input.isEmpty() && tile.inventory.getAmountAsInt(INPUT_SLOT) >= 4) {
                 var recipe = tile.getActiveRecipe();
 
                 if (recipe != null) {
