@@ -6,6 +6,7 @@ import hu.funoro.masterinfuser.creativemodetab.ModCreativeModeTabs;
 import hu.funoro.masterinfuser.data.recipe.ModRecipeTypes;
 import hu.funoro.masterinfuser.item.ModItems;
 import hu.funoro.masterinfuser.registry.ModRecipeSerializers;
+import hu.funoro.masterinfuser.tileentity.ModTileEntities;
 import net.minecraft.resources.Identifier;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.bus.api.SubscribeEvent;
@@ -36,6 +37,7 @@ public class MasterInfuser {
 
         ModItems.register(bus);
         ModBlocks.register(bus);
+        ModTileEntities.REGISTRY.register(bus);
         ModRecipeTypes.REGISTRY.register(bus);
         ModRecipeSerializers.register(bus);
 

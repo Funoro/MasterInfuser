@@ -8,15 +8,14 @@ import com.blakebr0.cucumber.inventory.OnContentsChangedFunction;
 import com.blakebr0.cucumber.inventory.SidedInventoryWrapper;
 import com.blakebr0.cucumber.tileentity.BaseInventoryTileEntity;
 import com.blakebr0.cucumber.util.ContainerDataBuilder;
-import com.blakebr0.mysticalagriculture.api.crafting.IReprocessorRecipe;
 import com.blakebr0.mysticalagriculture.api.machine.IUpgradeableMachine;
 import com.blakebr0.mysticalagriculture.api.machine.MachineUpgradeItemStackHandler;
 import com.blakebr0.mysticalagriculture.api.machine.MachineUpgradeTier;
-import com.blakebr0.mysticalagriculture.block.ReprocessorBlock;
 import com.blakebr0.mysticalagriculture.container.ReprocessorContainer;
-import com.blakebr0.mysticalagriculture.init.ModRecipeTypes;
-import com.blakebr0.mysticalagriculture.init.ModTileEntities;
 import com.blakebr0.mysticalagriculture.util.RecipeIngredientCache;
+import hu.funoro.masterinfuser.block.AutoinfuserBlock;
+import hu.funoro.masterinfuser.data.recipe.IAutoinfuserRecipe;
+import hu.funoro.masterinfuser.data.recipe.ModRecipeTypes;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.network.chat.Component;
@@ -40,7 +39,7 @@ import org.jspecify.annotations.Nullable;
 import java.util.List;
 import java.util.function.Supplier;
 
-public class ReprocessorTileEntity extends BaseInventoryTileEntity implements MenuProvider, IUpgradeableMachine {
+public class AutoinfuserTileEntity extends BaseInventoryTileEntity implements MenuProvider, IUpgradeableMachine {
     private static final int INPUT_SLOT = 0;
     private static final int FUEL_SLOT = 1;
     private static final int OUTPUT_SLOT = 2;
@@ -54,7 +53,7 @@ public class ReprocessorTileEntity extends BaseInventoryTileEntity implements Me
     private final MachineUpgradeItemStackHandler upgradeInventory;
     private final CEnergyStorage energy;
     private final SidedInventoryWrapper[] sidedInventoryWrappers;
-    private final CachedRecipe<CraftingInput, IReprocessorRecipe> recipe;
+    private final CachedRecipe<CraftingInput, IAutoinfuserRecipe> recipe;
 
     private final ContainerData dataAccess;
 
@@ -64,13 +63,13 @@ public class ReprocessorTileEntity extends BaseInventoryTileEntity implements Me
     private int fuelItemValue;
     private boolean isRunning;
 
-    public ReprocessorTileEntity(BlockPos pos, BlockState state) {
-        super(ModTileEntities.REPROCESSOR.get(), pos, state);
+    public AutoinfuserTileEntity(BlockPos pos, BlockState state) {
+        super(ModTileEntities.AUTOINFUSER.get(), pos, state);
         this.inventory = createInventoryHandler((_, _) -> this.setChanged(), this::getLevel);
         this.upgradeInventory = new MachineUpgradeItemStackHandler();
         this.energy = new CEnergyStorage(FUEL_CAPACITY, _ -> this.setChangedFast());
         this.sidedInventoryWrappers = SidedInventoryWrapper.create(this.inventory, List.of(Direction.UP, Direction.DOWN, Direction.NORTH), this::canInsertStackSided, null);
-        this.recipe = new CachedRecipe<>(ModRecipeTypes.REPROCESSOR.get());
+        this.recipe = new CachedRecipe<>(hu.funoro.masterinfuser.data.recipe.ModRecipeTypes.AUTOINFUSER.get());
 
         this.dataAccess = ContainerDataBuilder.builder()
                 .sync(this.energy::getAmountAsInt, this.energy::set)
@@ -111,7 +110,7 @@ public class ReprocessorTileEntity extends BaseInventoryTileEntity implements Me
 
     @Override
     public Component getDisplayName() {
-        return Component.translatable("container.mysticalagriculture.reprocessor");
+        return Component.translatable("container.masterinfuser.autoinfuser");
     }
 
     @Override
@@ -148,7 +147,7 @@ public class ReprocessorTileEntity extends BaseInventoryTileEntity implements Me
         };
     }
 
-    public static void tick(Level level, BlockPos pos, BlockState state, ReprocessorTileEntity tile) {
+    public static void tick(Level level, BlockPos pos, BlockState state, AutoinfuserTileEntity tile) {
         if (tile.energy.getAmountAsInt() < tile.energy.getCapacityAsInt()) {
             var fuel = tile.inventory.getResource(FUEL_SLOT);
 
@@ -213,7 +212,7 @@ public class ReprocessorTileEntity extends BaseInventoryTileEntity implements Me
                             tile.energy.extract(tile.getFuelUsage(), tx);
 
                             if (tile.progress >= tile.getOperationTime()) {
-                                tile.inventory.extract(INPUT_SLOT, input, 1, tx, true);
+                                tile.inventory.extract(INPUT_SLOT, input, 4, tx, true);
                                 tile.inventory.insert(OUTPUT_SLOT, ItemResource.of(result), result.count(), tx, true);
 
                                 tile.progress = 0;
@@ -237,7 +236,7 @@ public class ReprocessorTileEntity extends BaseInventoryTileEntity implements Me
         }
 
         if (wasRunning != tile.isRunning) {
-            level.setBlock(pos, state.setValue(ReprocessorBlock.RUNNING, tile.isRunning), 3);
+            level.setBlock(pos, state.setValue(AutoinfuserBlock.RUNNING, tile.isRunning), 3);
 
             tile.setChangedFast();
         }
@@ -245,7 +244,7 @@ public class ReprocessorTileEntity extends BaseInventoryTileEntity implements Me
         tile.dispatchIfChanged();
     }
 
-    public IReprocessorRecipe getActiveRecipe() {
+    public IAutoinfuserRecipe getActiveRecipe() {
         if (this.level == null)
             return null;
 
@@ -291,7 +290,7 @@ public class ReprocessorTileEntity extends BaseInventoryTileEntity implements Me
         if (direction == null)
             return true;
         if (slot == INPUT_SLOT && direction == Direction.UP)
-            return RecipeIngredientCache.INSTANCE.isValidInput(stack, ModRecipeTypes.REPROCESSOR.get());
+            return RecipeIngredientCache.INSTANCE.isValidInput(stack, ModRecipeTypes.AUTOINFUSER.get());
         if (slot == FUEL_SLOT && direction == Direction.NORTH)
             return this.level != null && this.level.fuelValues().isFuel(stack);
 
