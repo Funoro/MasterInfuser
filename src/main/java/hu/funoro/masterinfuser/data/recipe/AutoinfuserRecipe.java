@@ -1,6 +1,7 @@
 package hu.funoro.masterinfuser.data.recipe;
 
 import com.blakebr0.mysticalagriculture.crafting.recipe.ReprocessorRecipe;
+import com.mojang.logging.LogUtils;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import hu.funoro.masterinfuser.registry.ModRecipeSerializers;

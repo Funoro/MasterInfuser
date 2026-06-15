@@ -2,20 +2,24 @@ package hu.funoro.masterinfuser;
 
 import com.mojang.logging.LogUtils;
 import hu.funoro.masterinfuser.block.ModBlocks;
+import hu.funoro.masterinfuser.client.ModMenuScreens;
 import hu.funoro.masterinfuser.creativemodetab.ModCreativeModeTabs;
 import hu.funoro.masterinfuser.data.recipe.ModRecipeTypes;
+import hu.funoro.masterinfuser.init.ModMenuTypes;
 import hu.funoro.masterinfuser.item.ModItems;
 import hu.funoro.masterinfuser.registry.ModRecipeSerializers;
 import hu.funoro.masterinfuser.tileentity.ModTileEntities;
+import hu.funoro.masterinfuser.util.RecipeIngredientCache;
 import net.minecraft.resources.Identifier;
+import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.ModContainer;
 import net.neoforged.fml.common.Mod;
 import net.neoforged.fml.config.ModConfig;
 import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
+import net.neoforged.fml.loading.FMLEnvironment;
 import net.neoforged.neoforge.common.NeoForge;
-import net.neoforged.neoforge.event.BuildCreativeModeTabContentsEvent;
 import net.neoforged.neoforge.event.server.ServerStartingEvent;
 import org.slf4j.Logger;
 
@@ -25,7 +29,7 @@ public class MasterInfuser {
     // Define mod id in a common place for everything to reference
     public static final String MOD_ID = "masterinfuser";
     // Directly reference a slf4j logger
-    private static final Logger LOGGER = LogUtils.getLogger();
+    public static final Logger LOGGER = LogUtils.getLogger();
 
     // The constructor for the mod class is the first code that is run when your mod is loaded.
     // FML will recognize some parameter types like IEventBus or ModContainer and pass them in automatically.
@@ -37,14 +41,17 @@ public class MasterInfuser {
 
         ModItems.register(bus);
         ModBlocks.register(bus);
+        ModMenuTypes.REGISTRY.register(bus);
         ModTileEntities.REGISTRY.register(bus);
         ModRecipeTypes.REGISTRY.register(bus);
         ModRecipeSerializers.register(bus);
+        if (FMLEnvironment.getDist() == Dist.CLIENT) {
+            // register client stuff
+            bus.register(new ModMenuScreens());
+        }
 
         NeoForge.EVENT_BUS.register(this);
 
-        // Register the item to a creative tab
-        bus.addListener(this::addCreative);
 
         // Register our mod's ModConfigSpec so that FML can create and load the config file for us
         modContainer.registerConfig(ModConfig.Type.COMMON, Config.SPEC);
@@ -55,11 +62,8 @@ public class MasterInfuser {
     }
 
     private void commonSetup(final FMLCommonSetupEvent event) {
-
-    }
-
-    private void addCreative(BuildCreativeModeTabContentsEvent event) {
-
+        NeoForge.EVENT_BUS.register(RecipeIngredientCache.INSTANCE);
+        LOGGER.info("Master Infuser mod loaded.");
     }
 
     // You can use SubscribeEvent and let the Event Bus discover methods to call

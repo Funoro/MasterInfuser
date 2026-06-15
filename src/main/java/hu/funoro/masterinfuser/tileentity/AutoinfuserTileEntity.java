@@ -14,6 +14,7 @@ import com.blakebr0.mysticalagriculture.api.machine.MachineUpgradeTier;
 import com.blakebr0.mysticalagriculture.container.ReprocessorContainer;
 import com.blakebr0.mysticalagriculture.util.RecipeIngredientCache;
 import hu.funoro.masterinfuser.block.AutoinfuserBlock;
+import hu.funoro.masterinfuser.container.AutoinfuserContainer;
 import hu.funoro.masterinfuser.data.recipe.IAutoinfuserRecipe;
 import hu.funoro.masterinfuser.data.recipe.ModRecipeTypes;
 import net.minecraft.core.BlockPos;
@@ -38,6 +39,8 @@ import org.jspecify.annotations.Nullable;
 
 import java.util.List;
 import java.util.function.Supplier;
+
+// modified ReprocessorTileEntity by blakebr0
 
 public class AutoinfuserTileEntity extends BaseInventoryTileEntity implements MenuProvider, IUpgradeableMachine {
     private static final int INPUT_SLOT = 0;
@@ -69,7 +72,7 @@ public class AutoinfuserTileEntity extends BaseInventoryTileEntity implements Me
         this.upgradeInventory = new MachineUpgradeItemStackHandler();
         this.energy = new CEnergyStorage(FUEL_CAPACITY, _ -> this.setChangedFast());
         this.sidedInventoryWrappers = SidedInventoryWrapper.create(this.inventory, List.of(Direction.UP, Direction.DOWN, Direction.NORTH), this::canInsertStackSided, null);
-        this.recipe = new CachedRecipe<>(hu.funoro.masterinfuser.data.recipe.ModRecipeTypes.AUTOINFUSER.get());
+        this.recipe = new CachedRecipe<>(ModRecipeTypes.AUTOINFUSER.get());
 
         this.dataAccess = ContainerDataBuilder.builder()
                 .sync(this.energy::getAmountAsInt, this.energy::set)
@@ -115,7 +118,7 @@ public class AutoinfuserTileEntity extends BaseInventoryTileEntity implements Me
 
     @Override
     public AbstractContainerMenu createMenu(int id, Inventory playerInventory, Player player) {
-        return new ReprocessorContainer(id, playerInventory, this.inventory, this.upgradeInventory, this.dataAccess, this.getBlockPos());
+        return new AutoinfuserContainer(id, playerInventory, this.inventory, this.upgradeInventory, this.dataAccess, this.getBlockPos());
     }
 
     @Override
