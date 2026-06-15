@@ -91,3 +91,11 @@ type="required"
 reason="Dependency for Mystical Agriculture."
 versionRange="[9.0.3,9.1)"
 ordering="AFTER"
+
+# Mystical Agradditions
+[[dependencies."${mod_id}"]] #optional
+modId="mysticalagradditions"
+type="optional"
+reason="Optional support for insanium."
+versionRange="[9.0.0,9.1)"
+ordering="AFTER"

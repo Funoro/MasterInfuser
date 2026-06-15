@@ -1,6 +1,7 @@
 package hu.funoro.masterinfuser.data.recipe;
 
-import com.blakebr0.mysticalagriculture.item.EssenceItem;
+import com.blakebr0.cucumber.item.BaseItem;
+import com.blakebr0.mysticalagriculture.api.crop.ICropTierProvider;
 import net.minecraft.advancements.Criterion;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.recipes.*;
@@ -24,7 +25,7 @@ public class AutoinfuserRecipeBuilder implements RecipeBuilder {
         this.result = result;
     }
 
-    public static AutoinfuserRecipeBuilder tierUp(Identifier id, EssenceItem inputEssence, EssenceItem resultEssence) {
+    public static <T extends BaseItem & ICropTierProvider> AutoinfuserRecipeBuilder tierUp(Identifier id, T inputEssence, T resultEssence) {
         return new AutoinfuserRecipeBuilder(id, Ingredient.of(inputEssence), new ItemStackTemplate(resultEssence));
     }
 

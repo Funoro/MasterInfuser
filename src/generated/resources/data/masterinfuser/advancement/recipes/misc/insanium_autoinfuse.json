@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_supremium_essence": {
+      "conditions": {
+        "items": [
+          {
+            "items": "mysticalagriculture:supremium_essence"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "masterinfuser:insanium_autoinfuse"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_supremium_essence"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "masterinfuser:insanium_autoinfuse"
+    ]
+  }
+}

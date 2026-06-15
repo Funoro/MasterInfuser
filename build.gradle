@@ -24,6 +24,9 @@ repositories {
         name = "Jared's Maven"
         url = "https://maven.blamejared.com"
     }
+    maven {
+        url 'https://maven.blakesmods.com'
+    }
 }
 
 base {
@@ -111,11 +114,14 @@ sourceSets.main.resources { srcDir 'src/generated/resources' }
 
 dependencies {
 
-    // Mystical Agriculture v26.1.2-9.0.3
+    // Mystical Agriculture
     // https://www.curseforge.com/minecraft/mc-mods/mystical-agriculture/files/8130326
-    implementation "curse.maven:mystical-agriculture-246640:8130326"
-    // Cucumber for Myst.Agr.
-    implementation "curse.maven:cucumber-272335:8178456"
+    implementation "com.blakebr0.mysticalagriculture:MysticalAgriculture:${minecraft_version}-${mystical_version}"
+    // Mystical Agradditions - optional
+    compileOnly "com.blakebr0.mysticalagradditions:MysticalAgradditions:${minecraft_version}-${mystical_agradditions_version}"
+    runtimeOnly "com.blakebr0.mysticalagradditions:MysticalAgradditions:${minecraft_version}-${mystical_agradditions_version}"
+    // Cucumber library
+    implementation "com.blakebr0.cucumber:Cucumber:${minecraft_version}-${cucumber_version}"
 
     // Example mod dependency with JEI
     // The JEI API is declared for compile time use, while the full JEI artifact is used at runtime

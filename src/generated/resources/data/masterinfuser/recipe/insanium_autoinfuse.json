@@ -1,0 +1,7 @@
+{
+  "type": "masterinfuser:autoinfuser",
+  "input": "mysticalagriculture:supremium_essence",
+  "result": {
+    "id": "mysticalagradditions:insanium_essence"
+  }
+}

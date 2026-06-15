@@ -1,5 +1,6 @@
 package hu.funoro.masterinfuser.data.providers;
 
+import com.blakebr0.mysticalagradditions.MysticalAgradditions;
 import com.blakebr0.mysticalagriculture.MysticalAgriculture;
 import com.blakebr0.mysticalagriculture.item.EssenceItem;
 import hu.funoro.masterinfuser.MasterInfuser;
@@ -87,6 +88,12 @@ public class ModRecipeProvider extends RecipeProvider {
                 .save(output);
         AutoinfuserRecipeBuilder.tierUp(MasterInfuser.resource("supremium_autoinfuse"), imperium, supremium)
                 .unlockedBy(getHasName(imperium), has(imperium))
+                .save(output);
+
+        // Mystical Agradditions
+        com.blakebr0.mysticalagradditions.item.EssenceItem insanium = (com.blakebr0.mysticalagradditions.item.EssenceItem) BuiltInRegistries.ITEM.getValue(MysticalAgradditions.resource("insanium_essence"));
+        AutoinfuserRecipeBuilder.tierUp(MasterInfuser.resource("insanium_autoinfuse"), supremium, insanium)
+                .unlockedBy(getHasName(supremium), has(supremium))
                 .save(output);
     }
 }
