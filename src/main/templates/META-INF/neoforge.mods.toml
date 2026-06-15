@@ -99,3 +99,8 @@ type="optional"
 reason="Optional support for insanium."
 versionRange="[9.0.0,9.1)"
 ordering="AFTER"
+
+[[dependencies."${mod_id}"]] #optional
+modId="jei"
+type="optional"
+versionRange="[29.6.2.31,29.6.3)"
