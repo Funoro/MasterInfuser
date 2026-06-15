@@ -1,13 +1,10 @@
 package hu.funoro.masterinfuser.util;
 
 import com.blakebr0.cucumber.event.RecipeManagerLoadedEvent;
-import com.blakebr0.mysticalagriculture.MysticalAgriculture;
-import com.blakebr0.mysticalagriculture.network.payloads.ReloadIngredientCachePayload;
 import com.google.common.base.Function;
 import com.google.common.base.Stopwatch;
 import hu.funoro.masterinfuser.MasterInfuser;
 import hu.funoro.masterinfuser.data.recipe.ModRecipeTypes;
-import net.minecraft.core.Holder;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
@@ -16,10 +13,6 @@ import net.minecraft.world.item.crafting.RecipeInput;
 import net.minecraft.world.item.crafting.RecipeManager;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.neoforged.bus.api.SubscribeEvent;
-import net.neoforged.neoforge.common.crafting.SizedIngredient;
-import net.neoforged.neoforge.event.OnDatapackSyncEvent;
-import net.neoforged.neoforge.network.PacketDistributor;
-import net.neoforged.neoforge.transfer.item.ItemResource;
 import org.jspecify.annotations.NonNull;
 
 import java.util.ArrayList;
@@ -28,13 +21,13 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
-public class RecipeIngredientCache {
+public final class RecipeIngredientCache {
     public static final RecipeIngredientCache INSTANCE = new RecipeIngredientCache();
 
     private final Map<RecipeType<?>, Map<Item, List<Ingredient>>> caches;
+    private static int cachedRecipeCount = 0;
 
     private RecipeIngredientCache() {
         this.caches = new HashMap<>();
@@ -49,7 +42,7 @@ public class RecipeIngredientCache {
 
         cache(manager, ModRecipeTypes.AUTOINFUSER.get(), recipe -> List.of(recipe.getIngredient()));
 
-        MasterInfuser.LOGGER.info("Recipe ingredient caching done in {} ms", stopwatch.stop().elapsed(TimeUnit.MILLISECONDS));
+        MasterInfuser.LOGGER.info("Recipe ingredient caching done in {} ms (cached {} recipes)", stopwatch.stop().elapsed(TimeUnit.MILLISECONDS), cachedRecipeCount);
     }
 
     // called on the client by ReloadIngredientCacheMessage
@@ -80,6 +73,7 @@ public class RecipeIngredientCache {
                     cache.add(ingredient);
                 }
             }
+            cachedRecipeCount++;
         }
     }
 }

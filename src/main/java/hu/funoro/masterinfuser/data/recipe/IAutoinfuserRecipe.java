@@ -2,17 +2,13 @@ package hu.funoro.masterinfuser.data.recipe;
 
 import hu.funoro.masterinfuser.MasterInfuser;
 import net.minecraft.world.item.crafting.*;
+import org.jspecify.annotations.NonNull;
 
 public interface IAutoinfuserRecipe extends Recipe<CraftingInput> {
     Ingredient getIngredient();
 
     @Override
-    default boolean isSpecial() {
-        return true;
-    }
-
-    @Override
-    default String group() {
+    default @NonNull String group() {
         return MasterInfuser.MOD_ID + ":autoinfuser";
     }
 
@@ -22,12 +18,12 @@ public interface IAutoinfuserRecipe extends Recipe<CraftingInput> {
     }
 
     @Override
-    default RecipeBookCategory recipeBookCategory() {
+    default @NonNull RecipeBookCategory recipeBookCategory() {
         return RecipeBookCategories.CRAFTING_MISC;
     }
 
     @Override
-    default PlacementInfo placementInfo() {
+    default @NonNull PlacementInfo placementInfo() {
         return PlacementInfo.NOT_PLACEABLE;
     }
 }

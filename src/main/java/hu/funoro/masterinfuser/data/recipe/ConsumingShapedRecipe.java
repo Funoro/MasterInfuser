@@ -15,6 +15,7 @@ import net.minecraft.world.item.crafting.display.RecipeDisplay;
 import net.minecraft.world.item.crafting.display.ShapedCraftingRecipeDisplay;
 import net.minecraft.world.item.crafting.display.SlotDisplay;
 import net.minecraft.world.level.Level;
+import org.jspecify.annotations.NonNull;
 
 import java.util.List;
 import java.util.Optional;
@@ -35,7 +36,7 @@ public class ConsumingShapedRecipe extends NormalCraftingRecipe {
     }
 
     @Override
-    public RecipeSerializer<? extends NormalCraftingRecipe> getSerializer() {
+    public @NonNull RecipeSerializer<? extends NormalCraftingRecipe> getSerializer() {
         return ModRecipeSerializers.CONSUMING_SHAPED.get();
     }
 
@@ -44,17 +45,17 @@ public class ConsumingShapedRecipe extends NormalCraftingRecipe {
         return this.pattern.ingredients();
     }
 
-    protected PlacementInfo createPlacementInfo() {
+    protected @NonNull PlacementInfo createPlacementInfo() {
         return PlacementInfo.createFromOptionals(this.pattern.ingredients());
     }
 
     @Override
-    public boolean matches(CraftingInput input, Level level) {
+    public boolean matches(@NonNull CraftingInput input, @NonNull Level level) {
         return this.pattern.matches(input);
     }
 
     @Override
-    public ItemStack assemble(CraftingInput input) {
+    public @NonNull ItemStack assemble(@NonNull CraftingInput input) {
         return this.result.create();
     }
 
@@ -67,12 +68,12 @@ public class ConsumingShapedRecipe extends NormalCraftingRecipe {
     }
 
     @Override
-    public List<RecipeDisplay> display() {
-        return List.of(new ShapedCraftingRecipeDisplay(this.pattern.width(), this.pattern.height(), this.pattern.ingredients().stream().map((e) -> (SlotDisplay)e.map(Ingredient::display).orElse(SlotDisplay.Empty.INSTANCE)).toList(), new SlotDisplay.ItemStackSlotDisplay(this.result), new SlotDisplay.ItemSlotDisplay(Items.CRAFTING_TABLE)));
+    public @NonNull List<RecipeDisplay> display() {
+        return List.of(new ShapedCraftingRecipeDisplay(this.pattern.width(), this.pattern.height(), this.pattern.ingredients().stream().map((e) -> e.map(Ingredient::display).orElse(SlotDisplay.Empty.INSTANCE)).toList(), new SlotDisplay.ItemStackSlotDisplay(this.result), new SlotDisplay.ItemSlotDisplay(Items.CRAFTING_TABLE)));
     }
 
     @Override
-    public NonNullList<ItemStack> getRemainingItems(CraftingInput input) {
+    public @NonNull NonNullList<ItemStack> getRemainingItems(CraftingInput input) {
         return NonNullList.withSize(input.size(), ItemStack.EMPTY);
     }
 

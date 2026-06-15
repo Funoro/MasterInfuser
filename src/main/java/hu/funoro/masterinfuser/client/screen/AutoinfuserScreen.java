@@ -10,6 +10,7 @@ import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.Identifier;
 import net.minecraft.world.entity.player.Inventory;
+import org.jspecify.annotations.NonNull;
 
 // modified ReprocessorScreen by blakebr0
 
@@ -37,7 +38,7 @@ public class AutoinfuserScreen extends BaseContainerScreen<AutoinfuserContainer>
     }
 
     @Override
-    protected void extractTooltip(GuiGraphicsExtractor gfx, int mouseX, int mouseY) {
+    protected void extractTooltip(@NonNull GuiGraphicsExtractor gfx, int mouseX, int mouseY) {
         int x = this.getLeftPos();
         int y = this.getTopPos();
 

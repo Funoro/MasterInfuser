@@ -11,9 +11,9 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStackTemplate;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.Recipe;
-import net.minecraft.world.item.crafting.ShapedRecipe;
 import net.minecraft.world.item.crafting.ShapedRecipePattern;
 import net.minecraft.world.level.ItemLike;
+import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
 
 import java.util.List;
@@ -74,7 +74,7 @@ public class ConsumingShapedRecipeBuilder implements RecipeBuilder {
     }
 
     public ConsumingShapedRecipeBuilder pattern(String row) {
-        if (!this.rows.isEmpty() && row.length() != ((String)this.rows.get(0)).length()) {
+        if (!this.rows.isEmpty() && row.length() != this.rows.getFirst().length()) {
             throw new IllegalArgumentException("Pattern must be the same width on every line!");
         } else {
             this.rows.add(row);
@@ -82,11 +82,11 @@ public class ConsumingShapedRecipeBuilder implements RecipeBuilder {
         }
     }
 
-    public ConsumingShapedRecipeBuilder unlockedBy(String name, Criterion<?> criterion) {
+    public @NonNull ConsumingShapedRecipeBuilder unlockedBy(@NonNull String name, @NonNull Criterion<?> criterion) {
         this.advancementBuilder.unlockedBy(name, criterion);
         return this;
     }
-    public ConsumingShapedRecipeBuilder group(@Nullable String group) {
+    public @NonNull ConsumingShapedRecipeBuilder group(@Nullable String group) {
         this.group = group;
         return this;
     }
@@ -97,12 +97,12 @@ public class ConsumingShapedRecipeBuilder implements RecipeBuilder {
     }
 
     @Override
-    public ResourceKey<Recipe<?>> defaultId() {
+    public @NonNull ResourceKey<Recipe<?>> defaultId() {
         return RecipeBuilder.getDefaultRecipeId(this.result);
     }
 
     @Override
-    public void save(RecipeOutput output, ResourceKey<Recipe<?>> id) {
+    public void save(RecipeOutput output, @NonNull ResourceKey<Recipe<?>> id) {
         ShapedRecipePattern pattern = ShapedRecipePattern.of(this.key, this.rows);
         ConsumingShapedRecipe recipe = new ConsumingShapedRecipe(RecipeBuilder.createCraftingCommonInfo(this.showNotification), RecipeBuilder.createCraftingBookInfo(this.category, this.group), pattern, this.result);
         output.accept(id, recipe, this.advancementBuilder.build(output, id, this.category));

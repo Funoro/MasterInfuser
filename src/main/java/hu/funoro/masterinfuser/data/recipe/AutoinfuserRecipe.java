@@ -1,7 +1,5 @@
 package hu.funoro.masterinfuser.data.recipe;
 
-import com.blakebr0.mysticalagriculture.crafting.recipe.ReprocessorRecipe;
-import com.mojang.logging.LogUtils;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import hu.funoro.masterinfuser.registry.ModRecipeSerializers;
@@ -11,9 +9,13 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.ItemStackTemplate;
 import net.minecraft.world.item.crafting.*;
 import net.minecraft.world.level.Level;
+import org.jspecify.annotations.NonNull;
 
 public class AutoinfuserRecipe implements IAutoinfuserRecipe {
-    public static final MapCodec<AutoinfuserRecipe> MAP_CODEC = RecordCodecBuilder.mapCodec((builder) -> builder.group(Ingredient.CODEC.fieldOf("input").forGetter((recipe) -> recipe.input), ItemStackTemplate.CODEC.fieldOf("result").forGetter((recipe) -> recipe.result)).apply(builder, AutoinfuserRecipe::new));
+    public static final MapCodec<AutoinfuserRecipe> MAP_CODEC = RecordCodecBuilder.mapCodec((builder) -> builder.group(
+            Ingredient.CODEC.fieldOf("input").forGetter((recipe) -> recipe.input),
+            ItemStackTemplate.CODEC.fieldOf("result").forGetter((recipe) -> recipe.result)
+    ).apply(builder, AutoinfuserRecipe::new));
     public static final StreamCodec<RegistryFriendlyByteBuf, AutoinfuserRecipe> STREAM_CODEC = StreamCodec.of(AutoinfuserRecipe::toNetwork, AutoinfuserRecipe::fromNetwork);
 
     private final Ingredient input;
@@ -30,22 +32,22 @@ public class AutoinfuserRecipe implements IAutoinfuserRecipe {
     }
 
     @Override
-    public boolean matches(CraftingInput craftingInput, Level level) {
+    public boolean matches(CraftingInput craftingInput, @NonNull Level level) {
         return this.input.test(craftingInput.getItem(0));
     }
 
     @Override
-    public ItemStack assemble(CraftingInput craftingInput) {
+    public @NonNull ItemStack assemble(@NonNull CraftingInput craftingInput) {
         return this.result.create();
     }
 
     @Override
-    public RecipeSerializer<? extends Recipe<CraftingInput>> getSerializer() {
+    public @NonNull RecipeSerializer<? extends Recipe<CraftingInput>> getSerializer() {
         return ModRecipeSerializers.AUTOINFUSER.get();
     }
 
     @Override
-    public RecipeType<IAutoinfuserRecipe> getType() {
+    public @NonNull RecipeType<IAutoinfuserRecipe> getType() {
         return ModRecipeTypes.AUTOINFUSER.get();
     }
 

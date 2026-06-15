@@ -22,6 +22,7 @@ import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.block.state.properties.EnumProperty;
 import net.minecraft.world.phys.BlockHitResult;
+import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
 
 public class AutoinfuserBlock extends BaseTileEntityBlock {
@@ -34,7 +35,7 @@ public class AutoinfuserBlock extends BaseTileEntityBlock {
     }
 
     @Override
-    public @Nullable BlockEntity newBlockEntity(BlockPos blockPos, BlockState blockState) {
+    public @Nullable BlockEntity newBlockEntity(@NonNull BlockPos blockPos, @NonNull BlockState blockState) {
         return new AutoinfuserTileEntity(blockPos, blockState);
     }
 
@@ -44,20 +45,19 @@ public class AutoinfuserBlock extends BaseTileEntityBlock {
     }
 
     @Override
-    public BlockState rotate(BlockState state, Rotation rot) {
+    public @NonNull BlockState rotate(BlockState state, Rotation rot) {
         return state.setValue(FACING, rot.rotate(state.getValue(FACING)));
     }
 
     @Override
-    public BlockState mirror(BlockState state, Mirror mirror) {
+    public @NonNull BlockState mirror(BlockState state, Mirror mirror) {
         return state.rotate(mirror.getRotation(state.getValue(FACING)));
     }
 
-    protected InteractionResult useItemOn(ItemStack stack, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult) {
+    protected @NonNull InteractionResult useItemOn(@NonNull ItemStack stack, @NonNull BlockState state, Level level, @NonNull BlockPos pos, @NonNull Player player, @NonNull InteractionHand hand, @NonNull BlockHitResult hitResult) {
         if (!level.isClientSide()) {
             BlockEntity tile = level.getBlockEntity(pos);
-            if (tile instanceof AutoinfuserTileEntity) {
-                AutoinfuserTileEntity autoinfuser = (AutoinfuserTileEntity) tile;
+            if (tile instanceof AutoinfuserTileEntity autoinfuser) {
                 player.openMenu(autoinfuser, pos);
             }
         }
@@ -65,18 +65,22 @@ public class AutoinfuserBlock extends BaseTileEntityBlock {
         return InteractionResult.SUCCESS;
     }
 
-    protected boolean hasAnalogOutputSignal(BlockState state) {
+    @Override
+    protected boolean hasAnalogOutputSignal(@NonNull BlockState state) {
         return true;
     }
 
-    protected int getAnalogOutputSignal(BlockState state, Level level, BlockPos pos, Direction direction) {
+    @Override
+    protected int getAnalogOutputSignal(@NonNull BlockState state, Level level, @NonNull BlockPos pos, @NonNull Direction direction) {
         return BlockHelper.getRedstoneSignalFromInventory(level.getBlockEntity(pos));
     }
 
+    @Override
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
         builder.add(FACING, RUNNING);
     }
 
+    @Override
     protected <T extends BlockEntity> BlockEntityTicker<T> getServerTicker(Level level, BlockState state, BlockEntityType<T> type) {
         return createTicker(type, ModTileEntities.AUTOINFUSER.get(), AutoinfuserTileEntity::tick);
     }

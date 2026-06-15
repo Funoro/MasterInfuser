@@ -3,6 +3,7 @@ package hu.funoro.masterinfuser;
 import com.mojang.logging.LogUtils;
 import hu.funoro.masterinfuser.block.ModBlocks;
 import hu.funoro.masterinfuser.client.ModMenuScreens;
+import hu.funoro.masterinfuser.client.handler.ClientRecipeHandler;
 import hu.funoro.masterinfuser.creativemodetab.ModCreativeModeTabs;
 import hu.funoro.masterinfuser.data.recipe.ModRecipeTypes;
 import hu.funoro.masterinfuser.init.ModMenuTypes;
@@ -44,10 +45,12 @@ public class MasterInfuser {
         ModMenuTypes.REGISTRY.register(bus);
         ModTileEntities.REGISTRY.register(bus);
         ModRecipeTypes.REGISTRY.register(bus);
+        NeoForge.EVENT_BUS.register(ModRecipeTypes.class);
         ModRecipeSerializers.register(bus);
         if (FMLEnvironment.getDist() == Dist.CLIENT) {
             // register client stuff
             bus.register(new ModMenuScreens());
+            NeoForge.EVENT_BUS.register(new ClientRecipeHandler());
         }
 
         NeoForge.EVENT_BUS.register(this);

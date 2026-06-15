@@ -16,6 +16,7 @@ import net.minecraft.data.recipes.RecipeProvider;
 import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
+import org.jspecify.annotations.NonNull;
 
 import java.util.concurrent.CompletableFuture;
 
@@ -30,12 +31,12 @@ public class ModRecipeProvider extends RecipeProvider {
         }
 
         @Override
-        protected RecipeProvider createRecipeProvider(HolderLookup.Provider provider, RecipeOutput recipeOutput) {
+        protected @NonNull RecipeProvider createRecipeProvider(HolderLookup.@NonNull Provider provider, @NonNull RecipeOutput recipeOutput) {
             return new ModRecipeProvider(provider, recipeOutput);
         }
 
         @Override
-        public String getName() {
+        public @NonNull String getName() {
             return "Master Infuser Recipes";
         }
     }
@@ -77,19 +78,15 @@ public class ModRecipeProvider extends RecipeProvider {
         EssenceItem supremium = (EssenceItem) BuiltInRegistries.ITEM.getValue(MysticalAgriculture.resource("supremium_essence"));
         AutoinfuserRecipeBuilder.tierUp(MasterInfuser.resource("prudentium_autoinfuse"), inferium, prudentium)
                 .unlockedBy(getHasName(inferium), has(inferium))
-                .group(MasterInfuser.MOD_ID)
                 .save(output);
         AutoinfuserRecipeBuilder.tierUp(MasterInfuser.resource("tertium_autoinfuse"), prudentium, tertium)
                 .unlockedBy(getHasName(prudentium), has(prudentium))
-                .group(MasterInfuser.MOD_ID)
                 .save(output);
         AutoinfuserRecipeBuilder.tierUp(MasterInfuser.resource("imperium_autoinfuse"), tertium, imperium)
                 .unlockedBy(getHasName(tertium), has(tertium))
-                .group(MasterInfuser.MOD_ID)
                 .save(output);
         AutoinfuserRecipeBuilder.tierUp(MasterInfuser.resource("supremium_autoinfuse"), imperium, supremium)
                 .unlockedBy(getHasName(imperium), has(imperium))
-                .group(MasterInfuser.MOD_ID)
                 .save(output);
     }
 }

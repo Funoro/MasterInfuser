@@ -19,6 +19,7 @@ import net.minecraft.world.inventory.SimpleContainerData;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
 import net.neoforged.neoforge.transfer.item.ResourceHandlerSlot;
+import org.jspecify.annotations.NonNull;
 import org.slf4j.Logger;
 
 // modified ReprocessorContainer by blakebr0
@@ -56,7 +57,7 @@ public class AutoinfuserContainer extends BaseContainerMenu {
     private static final Logger LOGGER = LogUtils.getLogger();
 
     @Override
-    public ItemStack quickMoveStack(Player player, int index) {
+    public @NonNull ItemStack quickMoveStack(Player player, int index) {
         var itemstack = ItemStack.EMPTY;
         var slot = this.slots.get(index);
 
