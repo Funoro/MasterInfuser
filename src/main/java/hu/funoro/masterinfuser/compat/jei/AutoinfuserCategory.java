@@ -1,4 +1,4 @@
-package hu.funoro.masterinfuser.compat.jei.category;
+package hu.funoro.masterinfuser.compat.jei;
 
 import com.blakebr0.mysticalagriculture.MysticalAgriculture;
 import hu.funoro.masterinfuser.MasterInfuser;

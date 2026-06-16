@@ -4,7 +4,6 @@ import hu.funoro.masterinfuser.MasterInfuser;
 import hu.funoro.masterinfuser.block.ModBlocks;
 import hu.funoro.masterinfuser.client.handler.ClientRecipeHandler;
 import hu.funoro.masterinfuser.client.screen.AutoinfuserScreen;
-import hu.funoro.masterinfuser.compat.jei.category.AutoinfuserCategory;
 import mezz.jei.api.IModPlugin;
 import mezz.jei.api.JeiPlugin;
 import mezz.jei.api.registration.*;
