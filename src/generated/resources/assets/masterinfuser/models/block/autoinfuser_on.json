@@ -1,7 +1,7 @@
 {
   "parent": "minecraft:block/orientable",
   "textures": {
-    "front": "masterinfuser:block/autoinfuser_front",
+    "front": "masterinfuser:block/autoinfuser_front_on",
     "side": "mysticalagriculture:block/machine_side",
     "top": "mysticalagriculture:block/machine_side"
   }

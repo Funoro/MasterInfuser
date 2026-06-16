@@ -41,7 +41,7 @@ public class AutoinfuserBlock extends BaseTileEntityBlock {
 
     @Override
     public BlockState getStateForPlacement(BlockPlaceContext context) {
-        return this.defaultBlockState().setValue(FACING, context.getHorizontalDirection().getOpposite());
+        return this.defaultBlockState().setValue(FACING, context.getHorizontalDirection().getOpposite()).setValue(RUNNING, false);
     }
 
     @Override
@@ -50,8 +50,8 @@ public class AutoinfuserBlock extends BaseTileEntityBlock {
     }
 
     @Override
-    public @NonNull BlockState mirror(BlockState state, Mirror mirror) {
-        return state.rotate(mirror.getRotation(state.getValue(FACING)));
+    public @NonNull BlockState mirror(BlockState state, @NonNull Mirror mirror) {
+        return state.mirror(mirror);
     }
 
     protected @NonNull InteractionResult useItemOn(@NonNull ItemStack stack, @NonNull BlockState state, Level level, @NonNull BlockPos pos, @NonNull Player player, @NonNull InteractionHand hand, @NonNull BlockHitResult hitResult) {
