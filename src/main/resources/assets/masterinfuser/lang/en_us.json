@@ -5,5 +5,7 @@
 
   "creativetab.masterinfuser.master_infuser_tab": "Master Infuser",
   "container.masterinfuser.autoinfuser": "Autoinfuser",
-  "jei.category.masterinfuser.autoinfuser": "Autoinfusing"
+  "jei.category.masterinfuser.autoinfuser": "Autoinfusing",
+
+  "config.jade.plugin_masterinfuser.autoinfuser": "Autoinfuser"
 }
