@@ -11,11 +11,11 @@ import com.blakebr0.cucumber.util.ContainerDataBuilder;
 import com.blakebr0.mysticalagriculture.api.machine.IUpgradeableMachine;
 import com.blakebr0.mysticalagriculture.api.machine.MachineUpgradeItemStackHandler;
 import com.blakebr0.mysticalagriculture.api.machine.MachineUpgradeTier;
-import com.blakebr0.mysticalagriculture.util.RecipeIngredientCache;
 import hu.funoro.masterinfuser.block.AutoinfuserBlock;
 import hu.funoro.masterinfuser.container.AutoinfuserContainer;
 import hu.funoro.masterinfuser.data.recipe.IAutoinfuserRecipe;
 import hu.funoro.masterinfuser.data.recipe.ModRecipeTypes;
+import hu.funoro.masterinfuser.util.RecipeIngredientCache;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.network.chat.Component;
@@ -55,6 +55,7 @@ public class AutoinfuserTileEntity extends BaseInventoryTileEntity implements Me
     private final CItemStacksHandler inventory;
     private final MachineUpgradeItemStackHandler upgradeInventory;
     private final CEnergyStorage energy;
+    // UP is input, SIDE is fuel, DOWN is output
     private final SidedInventoryWrapper[] sidedInventoryWrappers;
     private final CachedRecipe<CraftingInput, IAutoinfuserRecipe> recipe;
 

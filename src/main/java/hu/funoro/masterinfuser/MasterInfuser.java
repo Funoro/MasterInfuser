@@ -6,6 +6,7 @@ import hu.funoro.masterinfuser.client.ModMenuScreens;
 import hu.funoro.masterinfuser.client.handler.ClientRecipeHandler;
 import hu.funoro.masterinfuser.creativemodetab.ModCreativeModeTabs;
 import hu.funoro.masterinfuser.data.recipe.ModRecipeTypes;
+import hu.funoro.masterinfuser.handler.RegisterCapabilityHandler;
 import hu.funoro.masterinfuser.init.ModMenuTypes;
 import hu.funoro.masterinfuser.item.ModItems;
 import hu.funoro.masterinfuser.registry.ModRecipeSerializers;
@@ -47,6 +48,9 @@ public class MasterInfuser {
         ModRecipeTypes.REGISTRY.register(bus);
         NeoForge.EVENT_BUS.register(ModRecipeTypes.class);
         ModRecipeSerializers.register(bus);
+
+        bus.register(RegisterCapabilityHandler.class);
+
         if (FMLEnvironment.getDist() == Dist.CLIENT) {
             // register client stuff
             bus.register(new ModMenuScreens());
