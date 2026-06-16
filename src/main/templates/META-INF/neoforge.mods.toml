@@ -45,47 +45,29 @@ config = "${mod_id}.mixins.json"
 
 # The coremods config file path is not configurable and is always loaded from META-INF/coremods.json
 
-# A dependency - use the . to indicate dependency for a specific modid. Dependencies are optional.
-[[dependencies."${mod_id}"]] #optional
-# the modid of the dependency
-modId = "neoforge" #mandatory
-# The type of the dependency. Can be one of "required", "optional", "incompatible" or "discouraged" (case insensitive).
-# 'required' requires the mod to exist, 'optional' does not
-# 'incompatible' will prevent the game from loading when the mod exists, and 'discouraged' will show a warning
-type = "required" #mandatory
-# Optional field describing why the dependency is required or why it is incompatible
-# reason="..."
-# The version range of the dependency
-versionRange = "${neo_version_range}" #mandatory
-# An ordering relationship for the dependency.
-# BEFORE - This mod is loaded BEFORE the dependency
-# AFTER - This mod is loaded AFTER the dependency
+[[dependencies."${mod_id}"]]
+modId = "neoforge"
+type = "required"
+versionRange = "${neo_version_range}"
 ordering = "NONE"
-# Side this dependency is applied on - BOTH, CLIENT, or SERVER
 side = "BOTH"
-# Here's another dependency
+
 [[dependencies."${mod_id}"]]
 modId = "minecraft"
 type = "required"
-# This version range declares a minimum of the current minecraft version up to but not including the next major version
 versionRange = "${minecraft_version_range}"
 ordering = "NONE"
 side = "BOTH"
 
-# Features are specific properties of the game environment, that you may want to declare you require. This example declares
-# that your mod requires GL version 3.2 or higher. Other features will be added. They are side aware so declaring this won't
-# stop your mod loading on the server for example.
-#[features."${mod_id}"]
-#openGLVersion="[3.2,)"
-
 # Mystical Agriculture
-[[dependencies."${mod_id}"]] #optional
+[[dependencies."${mod_id}"]]
 modId="mysticalagriculture"
 type="required"
 versionRange="[9.0.3,9.1)"
 ordering="AFTER"
 
-[[dependencies."${mod_id}"]] #optional
+# Cucumber
+[[dependencies."${mod_id}"]]
 modId="cucumber"
 type="required"
 reason="Dependency for Mystical Agriculture."
@@ -93,14 +75,23 @@ versionRange="[9.0.3,9.1)"
 ordering="AFTER"
 
 # Mystical Agradditions
-[[dependencies."${mod_id}"]] #optional
+[[dependencies."${mod_id}"]]
 modId="mysticalagradditions"
 type="optional"
 reason="Optional support for insanium."
 versionRange="[9.0.0,9.1)"
 ordering="AFTER"
 
-[[dependencies."${mod_id}"]] #optional
+# JEI
+[[dependencies."${mod_id}"]]
 modId="jei"
 type="optional"
 versionRange="[29.6.2.31,29.6.3)"
+side="CLIENT"
+
+# Features are specific properties of the game environment, that you may want to declare you require. This example declares
+# that your mod requires GL version 3.2 or higher. Other features will be added. They are side aware so declaring this won't
+# stop your mod loading on the server for example.
+#[features."${mod_id}"]
+#openGLVersion="[3.2,)"
+
