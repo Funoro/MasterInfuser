@@ -16,7 +16,7 @@ Although BlakeBr0's Mystical Automation mod adds an Infuser block which achieves
 
 ## Download
 
-You can download the mod from [CurseForge](https://www.curseforge.com/minecraft/mc-mods/master-infuser).
+You can download the mod from [CurseForge](https://www.curseforge.com/minecraft/mc-mods/masterinfuser).
 
 Get the source code from [GitHub](https://github.com/Funoro/MasterInfuser).
 
